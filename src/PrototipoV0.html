@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wireframe - Sistema de Gestión de Evidencia Videográfica</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  * {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', monospace, cursive;
+  }
+  body {
+    background-color: #ffffff;
+  }
+  .sketch-border {
+    border: 3px solid #000000;
+    border-radius: 2px;
+  }
+  .sketch-border-thin {
+    border: 2px solid #000000;
+  }
+  .sketch-btn {
+    border: 3px solid #000000;
+    background-color: #ffffff;
+    box-shadow: none;
+    transition: transform 0.05s ease;
+  }
+  .sketch-btn:hover {
+    background-color: #eeeeee;
+    transform: translate(1px, 1px);
+  }
+  .sketch-btn:active {
+    transform: translate(2px, 2px);
+  }
+  .video-block {
+    background-color: #e0e0e0;
+    border: 3px solid #000000;
+  }
+  .scribble-x {
+    position: relative;
+  }
+  .scribble-x::before,
+  .scribble-x::after {
+    content: "";
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    width: 90%;
+    height: 3px;
+    background: #999999;
+  }
+  .scribble-x::before {
+    transform: rotate(20deg);
+    top: 45%;
+  }
+  .scribble-x::after {
+    transform: rotate(-20deg);
+    top: 45%;
+  }
+  .dashed {
+    border: 2px dashed #000000;
+  }
+  .zigzag-underline {
+    text-decoration: underline wavy #000000 2px;
+  }
+  .hidden-screen {
+    display: none;
+  }
+  .rustic-table td, .rustic-table th {
+    border: 2px solid #000000;
+    padding: 8px;
+  }
+  ::placeholder {
+    color: #888888;
+    font-style: italic;
+  }
+</style>
+</head>
+<body class="min-h-screen flex">
+
+  <!-- SIDEBAR -->
+  <div class="w-56 sketch-border-thin border-t-0 border-b-0 border-l-0 border-r-[3px] min-h-screen p-4 flex flex-col gap-3">
+    <div class="text-center mb-4">
+      <div class="sketch-border p-2 text-lg font-bold">
+        [ SGEV ]<br>
+        <span class="text-xs">Sistema Evidencia</span>
+      </div>
+    </div>
+
+    <button onclick="mostrarPantalla(1)" id="nav-1" class="sketch-btn p-3 text-left text-sm">
+      &#9635; 1. Monitoreo en Vivo
+    </button>
+    <button onclick="mostrarPantalla(2)" id="nav-2" class="sketch-btn p-3 text-left text-sm">
+      &#9635; 2. Exportar Evidencia
+    </button>
+    <button onclick="mostrarPantalla(3)" id="nav-3" class="sketch-btn p-3 text-left text-sm">
+      &#9635; 3. Retención / Purga
+    </button>
+    <button onclick="mostrarPantalla(4)" id="nav-4" class="sketch-btn p-3 text-left text-sm">
+      &#9635; 4. Auditoría (Log)
+    </button>
+
+    <div class="mt-auto sketch-border p-2 text-xs text-center">
+      [ usuario: pbenitez ]<br>
+      [ rol: operador ]
+    </div>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="flex-1 p-6 overflow-y-auto">
+
+    <!-- ============================================= -->
+    <!-- PANTALLA 1: MONITOREO EN VIVO -->
+    <!-- ============================================= -->
+    <div id="screen-1" class="screen">
+      <div class="sketch-border p-3 mb-6 inline-block">
+        <h1 class="text-2xl font-bold">Acceso a Cámaras - Etapa 1</h1>
+      </div>
+      <p class="mb-4 text-sm">~~ Vista general de cámaras conectadas ~~</p>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+
+        <!-- Camara 1 -->
+        <div class="flex flex-col gap-2">
+          <div class="video-block relative h-40 flex items-center justify-center">
+            <span class="absolute top-1 left-1 sketch-border-thin bg-white px-1 text-xs">CAM_01_FronteraSeca</span>
+            <span class="text-xl font-bold">[ VIDEO EN VIVO ]</span>
+            <span class="absolute bottom-1 right-2 text-lg">[ &gt; ]</span>
+          </div>
+          <button onclick="extraerEvidencia('CAM_01_FronteraSeca')" class="sketch-btn p-2 text-sm">[ Extraer Evidencia ]</button>
+        </div>
+
+        <!-- Camara 2 -->
+        <div class="flex flex-col gap-2">
+          <div class="video-block relative h-40 flex items-center justify-center">
+            <span class="absolute top-1 left-1 sketch-border-thin bg-white px-1 text-xs">CAM_02_AccesoNorte</span>
+            <span class="text-xl font-bold">[ VIDEO EN VIVO ]</span>
+            <span class="absolute bottom-1 right-2 text-lg">[ &gt; ]</span>
+          </div>
+          <button onclick="extraerEvidencia('CAM_02_AccesoNorte')" class="sketch-btn p-2 text-sm">[ Extraer Evidencia ]</button>
+        </div>
+
+        <!-- Camara 3 -->
+        <div class="flex flex-col gap-2">
+          <div class="video-block relative h-40 flex items-center justify-center">
+            <span class="absolute top-1 left-1 sketch-border-thin bg-white px-1 text-xs">CAM_03_PatioCarga</span>
+            <span class="text-xl font-bold">[ VIDEO EN VIVO ]</span>
+            <span class="absolute bottom-1 right-2 text-lg">[ &gt; ]</span>
+          </div>
+          <button onclick="extraerEvidencia('CAM_03_PatioCarga')" class="sketch-btn p-2 text-sm">[ Extraer Evidencia ]</button>
+        </div>
+
+        <!-- Camara 4 - fuera de linea (X gigante) -->
+        <div class="flex flex-col gap-2">
+          <div class="video-block scribble-x relative h-40 flex items-center justify-center">
+            <span class="absolute top-1 left-1 sketch-border-thin bg-white px-1 text-xs">CAM_04_AccesoSur</span>
+            <span class="text-lg font-bold bg-white sketch-border-thin px-1">[ SIN SEÑAL ]</span>
+          </div>
+          <button disabled class="sketch-btn p-2 text-sm opacity-40 cursor-not-allowed">[ Extraer Evidencia ]</button>
+        </div>
+
+        <!-- Camara 5 -->
+        <div class="flex flex-col gap-2">
+          <div class="video-block relative h-40 flex items-center justify-center">
+            <span class="absolute top-1 left-1 sketch-border-thin bg-white px-1 text-xs">CAM_05_SalaEspera</span>
+            <span class="text-xl font-bold">[ VIDEO EN VIVO ]</span>
+            <span class="absolute bottom-1 right-2 text-lg">[ &gt; ]</span>
+          </div>
+          <button onclick="extraerEvidencia('CAM_05_SalaEspera')" class="sketch-btn p-2 text-sm">[ Extraer Evidencia ]</button>
+        </div>
+
+        <!-- Camara 6 -->
+        <div class="flex flex-col gap-2">
+          <div class="video-block relative h-40 flex items-center justify-center">
+            <span class="absolute top-1 left-1 sketch-border-thin bg-white px-1 text-xs">CAM_06_Deposito</span>
+            <span class="text-xl font-bold">[ VIDEO EN VIVO ]</span>
+            <span class="absolute bottom-1 right-2 text-lg">[ &gt; ]</span>
+          </div>
+          <button onclick="extraerEvidencia('CAM_06_Deposito')" class="sketch-btn p-2 text-sm">[ Extraer Evidencia ]</button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- PANTALLA 2: EXPORTACION Y CADENA DE CUSTODIA -->
+    <!-- ============================================= -->
+    <div id="screen-2" class="screen hidden-screen">
+      <div class="sketch-border p-3 mb-6 inline-block">
+        <h1 class="text-2xl font-bold">Exportar Evidencia</h1>
+      </div>
+      <p class="mb-4 text-sm">~~ Cadena de Custodia - Formulario de Solicitud ~~</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div>
+          <label class="block text-sm mb-1 font-bold">Cámara Seleccionada:</label>
+          <input id="input-camara" type="text" class="sketch-border-thin w-full p-2" placeholder="ej. CAM_01_FronteraSeca">
+        </div>
+        <div>
+          <label class="block text-sm mb-1 font-bold">ID de Solicitud Judicial / Oficio:</label>
+          <input type="text" class="sketch-border-thin w-full p-2" placeholder="ej. OF-2026-00458">
+        </div>
+        <div>
+          <label class="block text-sm mb-1 font-bold">Fecha y Hora Inicio:</label>
+          <input type="text" class="sketch-border-thin w-full p-2" placeholder="dd/mm/aaaa -- hh:mm">
+        </div>
+        <div>
+          <label class="block text-sm mb-1 font-bold">Fecha y Hora Fin:</label>
+          <input type="text" class="sketch-border-thin w-full p-2" placeholder="dd/mm/aaaa -- hh:mm">
+        </div>
+        <div class="md:col-span-2">
+          <label class="block text-sm mb-1 font-bold">Funcionario Solicitante:</label>
+          <input type="text" class="sketch-border-thin w-full p-2" placeholder="Nombre y Apellido / Legajo">
+        </div>
+      </div>
+
+      <!-- Timeline simulado -->
+      <div class="mb-6">
+        <p class="text-sm font-bold mb-1">Línea de Tiempo de Grabación Disponible:</p>
+        <div class="sketch-border-thin p-3 relative h-16 flex items-center">
+          <div class="w-full h-2 bg-gray-300 relative">
+            <div class="absolute left-0 top-0 h-2 bg-gray-500" style="width: 60%;"></div>
+            <span class="absolute -top-5 left-0 text-xs">00:00</span>
+            <span class="absolute -top-5 left-1/2 text-xs">12:00</span>
+            <span class="absolute -top-5 right-0 text-xs">23:59</span>
+            <div class="absolute -top-1 left-[20%] w-1 h-4 bg-black"></div>
+            <div class="absolute -top-1 left-[55%] w-1 h-4 bg-black"></div>
+          </div>
+        </div>
+        <p class="text-xs mt-1">[ tramo seleccionado marcado con líneas negras ]</p>
+      </div>
+
+      <button onclick="exportarEvidencia()" class="sketch-btn p-4 text-lg font-bold w-full mb-4">
+        [ Exportar Video con Sello de Tiempo y Hash SHA-256 ]
+      </button>
+
+      <!-- Mensaje de exito oculto -->
+      <div id="mensaje-exito" class="hidden-screen dashed p-4 bg-gray-50">
+        <p class="font-bold">[ ✓ EXPORTACIÓN COMPLETADA ]</p>
+        <p class="text-sm mt-2">Archivo: evidencia_CAM_01_20260830.mp4</p>
+        <p class="text-sm">Sello de tiempo: 2026-08-30 14:32:07</p>
+        <p class="text-sm break-all">Hash SHA-256: 9f8c3a1e7b2d4f6a0c5e8b1d3a7f2c9e4b6d8a1f3c5e7b9d2a4f6c8e0b1d3a5f</p>
+        <p class="text-xs mt-2 zigzag-underline">Registro guardado automáticamente en Auditoría</p>
+      </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- PANTALLA 3: POLITICA DE RETENCION Y PURGA -->
+    <!-- ============================================= -->
+    <div id="screen-3" class="screen hidden-screen">
+      <div class="sketch-border p-3 mb-6 inline-block">
+        <h1 class="text-2xl font-bold">Configuración de Almacenamiento Legal</h1>
+      </div>
+
+      <div class="sketch-border-thin p-4 mb-6 max-w-md">
+        <label class="block text-sm mb-2 font-bold">Plazo de conservación legal (días):</label>
+        <input type="text" value="30" class="sketch-border-thin w-24 p-2 text-center text-lg">
+      </div>
+
+      <div class="dashed p-4 mb-6 max-w-xl">
+        <p class="text-sm">
+          &#9888; Alerta: Las imágenes que superen este plazo serán eliminadas automáticamente (purga) para cumplir con el Art. 4 de la Ley 25.326.
+        </p>
+      </div>
+
+      <div class="flex gap-4 flex-wrap">
+        <button class="sketch-btn p-3 font-bold">[ Guardar Configuración ]</button>
+        <button class="sketch-btn p-3 font-bold border-dashed">[ Forzar Purga Manual ]</button>
+      </div>
+
+      <div class="mt-6 sketch-border-thin p-3 max-w-md">
+        <p class="text-xs font-bold mb-1">Estado del almacenamiento:</p>
+        <p class="text-xs">[ Espacio utilizado: 62% ] &nbsp; [ Próxima purga automática: 2026-09-29 23:59 ]</p>
+      </div>
+    </div>
+
+    <!-- ============================================= -->
+    <!-- PANTALLA 4: REGISTRO DE AUDITORIA -->
+    <!-- ============================================= -->
+    <div id="screen-4" class="screen hidden-screen">
+      <div class="sketch-border p-3 mb-6 inline-block">
+        <h1 class="text-2xl font-bold">Auditoría de Accesos</h1>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="rustic-table w-full text-sm">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="text-left">Fecha/Hora</th>
+              <th class="text-left">Usuario</th>
+              <th class="text-left">Acción Realizada</th>
+              <th class="text-left">Cámara/ID</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-auditoria">
+            <tr>
+              <td>2026-08-30 10:15</td>
+              <td>pbenitez</td>
+              <td>Visualización en vivo</td>
+              <td>CAM_01_FronteraSeca</td>
+            </tr>
+            <tr>
+              <td>2026-08-30 11:20</td>
+              <td>supervisor_01</td>
+              <td>Exportación con Hash</td>
+              <td>CAM_02_AccesoNorte</td>
+            </tr>
+            <tr>
+              <td>2026-08-30 23:59</td>
+              <td>SYSTEM</td>
+              <td>Purga automática 30 días</td>
+              <td>Múltiples</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-xs mt-4">[ fin del registro -- scroll para más resultados ]</p>
+    </div>
+
+  </div>
+
+  <script>
+    let contadorAuditoria = 0;
+
+    function mostrarPantalla(numero) {
+      document.querySelectorAll('.screen').forEach(function(el) {
+        el.classList.add('hidden-screen');
+      });
+      document.getElementById('screen-' + numero).classList.remove('hidden-screen');
+
+      document.querySelectorAll('[id^="nav-"]').forEach(function(btn) {
+        btn.classList.remove('bg-gray-200');
+      });
+      document.getElementById('nav-' + numero).classList.add('bg-gray-200');
+    }
+
+    function extraerEvidencia(nombreCamara) {
+      document.getElementById('input-camara').value = nombreCamara;
+      document.getElementById('mensaje-exito').classList.add('hidden-screen');
+      mostrarPantalla(2);
+    }
+
+    function exportarEvidencia() {
+      document.getElementById('mensaje-exito').classList.remove('hidden-screen');
+
+      // Agregar fila simulada a la tabla de auditoria
+      var camara = document.getElementById('input-camara').value || 'CAM_DESCONOCIDA';
+      var tabla = document.getElementById('tabla-auditoria');
+      var fila = document.createElement('tr');
+      fila.innerHTML = '<td>2026-08-30 [nueva]</td><td>pbenitez</td><td>Exportación con Hash</td><td>' + camara + '</td>';
+      tabla.appendChild(fila);
+    }
+
+    // Inicializar en pantalla 1
+    mostrarPantalla(1);
+  </script>
+
+</body>
+</html>
